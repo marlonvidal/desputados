@@ -47,6 +47,13 @@ angular.module('app.controllers', [])
     $scope.checkAnswer = function(item){
       //TODO
       console.log(answer);
+      $scope.nextQuestion();
+
+    }
+
+    $scope.nextQuestion = function(){
+      // CHAMAR A NOVA QUESTAO AQUI
+      // $scope.question = data[Math.floor(Math.random()*data.length)];
     }
 
 })

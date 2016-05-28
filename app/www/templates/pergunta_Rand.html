@@ -11,11 +11,10 @@
             <ion-radio  ng-repeat="item in question.alternativas"
                         ng-value="item.alternativaCorreta"
                         ng-click="onMarkQuestion(item)"
-                        ng-checked="item.selected"
-                        ng-model="data.clientSide">
+                        ng-checked="item.selected">
                         {{item.descricao}}
             </ion-radio>
-            <button class="button button-full button-positive button-block" ng-click="checkAnswer(data.clientSide)">Proxima</button>
+            <button class="button button-full button-positive button-block" ng-click="checkAnswer()">Proxima</button>
 
             <!-- <a ui-sref="pergunta_Random" id="pergunta_Bio-button18" class="button button-positive  button-block">Próxima</a> -->
           </ion-list>
