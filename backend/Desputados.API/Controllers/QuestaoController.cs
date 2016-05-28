@@ -33,9 +33,9 @@ namespace Desputados.API.Controllers
 
                 return Ok(lista);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
-                return InternalServerError();
+                return InternalServerError(ex);
             }
         }
     }

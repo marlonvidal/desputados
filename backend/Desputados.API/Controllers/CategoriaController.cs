@@ -18,21 +18,14 @@ namespace Desputados.API.Controllers
         [Route("")]
         public IHttpActionResult Get()
         {
-            try
-            {
-                var db = new DesputadosContext();
-                var lista = new List<Categoria>();
+            var db = new DesputadosContext();
+            var lista = new List<Categoria>();
 
-                foreach (var item in db.categorias)
-                    lista.Add(item);
+            foreach (var item in db.categorias)
+                lista.Add(item);
 
 
-                return Ok(lista);
-            }
-            catch (Exception)
-            {
-                return InternalServerError();
-            }
+            return Ok(lista);
         }
     }
 }
