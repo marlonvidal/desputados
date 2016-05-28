@@ -22,6 +22,7 @@ angular.module('app.controllers', [])
 .controller('mainController', function($scope, $http) {
 
   var score = new getScore();
+  var answer;
 
   //Esse http.get pode dar problema de CORS (plugin pro chrome https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US)
   $scope.question = "";
@@ -39,14 +40,13 @@ angular.module('app.controllers', [])
     });
 
     $scope.onMarkQuestion = function(item){
-      console.log("marcou")
+      console.log(item.alternativaCorreta)
+      answer = item;
     }
 
-    $scope.checkAnswer = function(){
+    $scope.checkAnswer = function(item){
       //TODO
-      console.log("Correta")
-      score.add();
-
+      console.log(answer);
     }
 
 })

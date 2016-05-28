@@ -5,17 +5,20 @@
             <img src="img/spvSHsBAROUZlVIPmNfg_bio.png" width="50%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
         </div>
         <div class="spacer" style="width: 283px; height: 41px;"></div>
-        <p id="pergunta_Bio-markdown3" style="color:#12C977;font-size:18px;text-align:justify;" class=" ">{{question.enunciado}}</p>
+        <p style="color:#12C977;font-size:16px;text-align:justify;" class=" ">{{question.enunciado}}</p>
         <form id="pergunta_Bio-form6"
           <ion-list>
-            <ion-item ng-repeat="item in question.alternativas track by $index">
-              <ion-radio ng-model="filter.blue" ng-value="{{item.alternativaCorreta}}" ng-click="onMarkQuestion(item)">{{item.descricao}}</ion-radio>
-            </ion-item>
-            <button class="button button-full button-positive button-block" ng-click="checkAnswer()">Proxima</button>
+            <ion-radio  ng-repeat="item in question.alternativas"
+                        ng-value="item.alternativaCorreta"
+                        ng-click="onMarkQuestion(item)"
+                        ng-checked="item.selected"
+                        ng-model="data.clientSide">
+                        {{item.descricao}}
+            </ion-radio>
+            <button class="button button-full button-positive button-block" ng-click="checkAnswer(data.clientSide)">Proxima</button>
 
             <!-- <a ui-sref="pergunta_Random" id="pergunta_Bio-button18" class="button button-positive  button-block">Próxima</a> -->
           </ion-list>
-
         </form>
     </ion-content>
 </ion-view>
