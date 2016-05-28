@@ -8,11 +8,14 @@
         <p id="pergunta_Bio-markdown3" style="color:#12C977;font-size:18px;text-align:justify;" class=" ">{{question.enunciado}}</p>
         <form id="pergunta_Bio-form6"
           <ion-list>
-            <ion-item ng-repeat="item in question.opcoes track by $index">
-              <ion-radio ng-model="filter.blue" ng-value="{{item.opcoes.opcao}}">{{item.enunciadoAtl}}</ion-radio>
+            <ion-item ng-repeat="item in question.alternativas track by $index">
+              <ion-radio ng-model="filter.blue" ng-value="{{item.alternativaCorreta}}" ng-click="onMarkQuestion(item)">{{item.descricao}}</ion-radio>
             </ion-item>
+            <button class="button button-full button-positive button-block" ng-click="checkAnswer()">Proxima</button>
+
+            <!-- <a ui-sref="pergunta_Random" id="pergunta_Bio-button18" class="button button-positive  button-block">Próxima</a> -->
           </ion-list>
-          <a ui-sref="pergunta_Random" id="pergunta_Bio-button18" class=" button button-positive  button-block ">Próxima</a>
+
         </form>
     </ion-content>
 </ion-view>

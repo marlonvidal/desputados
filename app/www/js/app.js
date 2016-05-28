@@ -22,17 +22,17 @@ app.run(function($ionicPlatform) {
   });
 });
 
-app.controller('mainController', function($scope){
-  var questions = new getQuestions();
-
-  //TODO
-  $scope.question = questions.items[Math.floor(Math.random()*questions.items.length)];
-
-  console.log(questions.items.length);
-
-  $scope.onMarkTask = function(item){
-    console.log("passou");
-    item.finalizada = !item.finalizada;
-  };
-
-});
+// app.controller('mainController', function($scope){
+//   var questions = new getQuestions();
+//
+//   //TODO
+//   $scope.question = questions.items[Math.floor(Math.random()*questions.items.length)];
+//
+//   console.log(questions.items.length);
+//
+//   $scope.onMarkTask = function(item){
+//     console.log("passou");
+//     item.finalizada = !item.finalizada;
+//   };
+//
+// });
