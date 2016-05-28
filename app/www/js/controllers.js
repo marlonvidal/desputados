@@ -19,25 +19,24 @@ angular.module('app.controllers', [])
 //
 // })
 
-.controller('mainController', function($scope, $http) {
+.controller('mainController', function($scope, QuestoesService) {
 
   var score = new getScore();
   var answer;
 
-  //Esse http.get pode dar problema de CORS (plugin pro chrome https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US)
-  $scope.question = "";
-  $http.get('http://desputados.devmsistemas.com.br/api/questoes/2')
-    .success(function(data, status, headers,config){
-      console.log('data success');
-      console.log(data); // for browser console
-      $scope.question = data[Math.floor(Math.random()*data.length)]; // Pega uma pergunta randomica
+    $scope.question = "";
+
+    //Esse http.get pode dar problema de CORS (plugin pro chrome https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US)
+    QuestoesService.buscaQuestoes(2)
+    .then(function(data) {
+        console.log('data success');
+        console.log(data); // for browser console
+        $scope.question = data[Math.floor(Math.random()*data.length)]; // Pega uma pergunta randomica
     })
-    .error(function(data, status, headers,config){
-      console.log('data error');
-    })
-    .then(function(question){
-      things = question.data;
-    });
+    .catch(function(data) {
+        console.log('data error');
+        console.log(data);
+    });  
 
     $scope.onMarkQuestion = function(item){
       console.log(item.alternativaCorreta)
