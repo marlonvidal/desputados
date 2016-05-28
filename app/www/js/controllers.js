@@ -4,29 +4,17 @@ angular.module('app.controllers', [])
 
 })
 
-// .controller('mainController', function($scope){
-//   var questions = new getQuestions();
-//
-//   //TODO
-//   $scope.question = questions.items[Math.floor(Math.random()*questions.items.length)];
-//
-//   console.log(questions.items.length +1);
-//
-//   $scope.onMarkTask = function(item){
-//     console.log("passou");
-//     item.finalizada = !item.finalizada;
-//   };
-//
-// })
-
 .controller('mainController', function($scope, QuestoesService) {
 
   var score = new getScore();
   var answer;
 
-    $scope.question = "";
+  getQuestion();
 
-    //Esse http.get pode dar problema de CORS (plugin pro chrome https://chrome.google.com/webstore/detail/allow-control-allow-origi/nlfbmbojpeacfghkpbjhddihlkkiljbi?hl=en-US)
+  function getQuestion(){
+    $scope.question = "";
+    $scope.marked = true; //check if the one answer was marked
+
     QuestoesService.buscaQuestoes(2)
     .then(function(data) {
         console.log('data success');
@@ -36,25 +24,24 @@ angular.module('app.controllers', [])
     .catch(function(data) {
         console.log('data error');
         console.log(data);
-    });  
+    });
+  }
 
     $scope.onMarkQuestion = function(item){
-      console.log(item.alternativaCorreta)
+      console.log(item.alternativaCorreta);
       answer = item;
+      $scope.marked = false;
     }
 
-    $scope.checkAnswer = function(item){
+    $scope.checkAnswer = function(){
       //TODO
       console.log(answer);
       $scope.nextQuestion();
-
     }
 
     $scope.nextQuestion = function(){
-      // CHAMAR A NOVA QUESTAO AQUI
-      // $scope.question = data[Math.floor(Math.random()*data.length)];
+      getQuestion();
     }
-
 })
 
 .controller('menuCtrl', function($scope) {
