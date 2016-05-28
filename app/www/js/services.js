@@ -12,7 +12,7 @@ angular.module('app.services', [])
 
 		var deferred = $q.defer();
 
-		$http.get(URL_API + '/api/questoes/' + idCategoria)
+		$http.get(URL_API + 'api/questoes/' + idCategoria)
 		.success(function (data) {
 			deferred.resolve(data);
 		})
