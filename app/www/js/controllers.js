@@ -4,10 +4,11 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('mainController', function($scope, QuestoesService) {
+.controller('mainController', function($scope, $ionicPopup, QuestoesService) {
 
-  var score = new getScore();
+  var score = 0;//TEMPORARIO TEM QUE BUSCAR DO BD
   var answer;
+  var message;
 
   getQuestion();
 
@@ -30,17 +31,38 @@ angular.module('app.controllers', [])
     $scope.onMarkQuestion = function(item){
       console.log(item.alternativaCorreta);
       answer = item;
+      //console.log(answer);
       $scope.marked = false;
     }
 
-    $scope.checkAnswer = function(){
-      //TODO
-      console.log(answer);
-      $scope.nextQuestion();
+    $scope.checkAnswer = function(question){
+      // console.log(question);
+      if (answer.alternativaCorreta == true){
+        message = {text: "Acertô Mizeravi",
+                   desc: answer.descricao};
+        score +=1;
+        console.log(score);
+        showModal(message);
+      } else {
+
+        message = {text: "Errooooooooou!!!",
+                   desc: "Assista a Video-Aula com a Resposta Truta!!!"};
+        showModal(message);
+      }
     }
 
-    $scope.nextQuestion = function(){
-      getQuestion();
+    function showModal(message){
+      var myModal = $ionicPopup.show({
+        title: message.text,
+        subTitle: message.desc,
+        template:"",
+        buttons: [{text: "Continuar",
+                   type: 'button-positive'}]
+      }).then();
+
+      myModal.then(function(res){
+        getQuestion();
+      });
     }
 })
 

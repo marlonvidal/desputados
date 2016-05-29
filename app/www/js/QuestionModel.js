@@ -1,13 +1,13 @@
-//Adiciona Score temporario
-function getScore(){
-
-  this.score = 0;
-
-  this.add = function(){
-    this.score += 1;
-  }
-
-}
+// //Adiciona Score temporario
+// function getScore(){
+//
+//   this.score = 0;
+//
+//   this.add = function(){
+//     this.score +=1;
+//   }
+//
+// }
 
 //Model Provisorio das questoes pegar da API em JSON
 // function getQuestions() {
