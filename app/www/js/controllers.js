@@ -10,13 +10,16 @@ angular.module('app.controllers', [])
   var answer;
   var message;
 
-  getQuestion();
 
-  function getQuestion(){
+
+  getQuestion(2);
+
+  function getQuestion(item){
+    console.log(item);
     $scope.question = "";
     $scope.marked = true; //check if the one answer was marked
 
-    QuestoesService.buscaQuestoes(2)
+    QuestoesService.buscaQuestoes(item)
     .then(function(data) {
         console.log('data success');
         console.log(data); // for browser console
@@ -29,7 +32,7 @@ angular.module('app.controllers', [])
   }
 
     $scope.onMarkQuestion = function(item){
-      console.log(item.alternativaCorreta);
+      console.log(item);
       answer = item;
       //console.log(answer);
       $scope.marked = false;
@@ -38,7 +41,7 @@ angular.module('app.controllers', [])
     $scope.checkAnswer = function(question){
       // console.log(question);
       if (answer.alternativaCorreta == true){
-        message = {text: "Acertô Mizeravi",
+        message = {text: "Acertou",
                    desc: answer.descricao};
         score +=1;
         console.log(score);
@@ -59,9 +62,29 @@ angular.module('app.controllers', [])
         buttons: [{text: "Continuar",
                    type: 'button-positive'}]
       }).then();
-
       myModal.then(function(res){
-        getQuestion();
+        getQuestion(2);
+      });
+    }
+
+    function choice(choice){
+      this.choice = choice;
+    }
+
+    //((REDIRECIONAR PRA VIEW DE PERGUNTAS DEPOIS DE ESCOLHER A MATERIAS))
+    $scope.menuModal = function(){
+      console.log("vem monstro");
+      var menuModal = $ionicPopup.show({
+        title: "Qual é a tua?",
+        subTitle: "<h2>Quer <del>jogar</del> estudar o que Parceiro?</h2>",
+        template:"",
+        buttons: [{text: "Biologia",
+                   type: "button-positive",
+                    onTap: choice(2)}]
+      });
+
+      menuModal.then(function(res){
+        getQuestion(this.choice)
       });
     }
 })
