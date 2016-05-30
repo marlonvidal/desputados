@@ -39,7 +39,7 @@ angular.module('app.controllers', [])
       if (answer.alternativaCorreta == true){
         message = {text: "Acertou",
                    desc: answer.descricao};
-        score +=1;
+        score +=1; //chamada da API
         console.log(score);
         showModal(message);
       } else {
@@ -65,7 +65,7 @@ angular.module('app.controllers', [])
     //((REDIRECIONAR PRA VIEW DE PERGUNTAS DEPOIS DE ESCOLHER A MATERIAS))
     $scope.menuPopUp = function(){
       var choice = 0;
-
+      
       var menuModal = $ionicPopup.show({
         title: "Qual é a tua?",
         subTitle: "<h2>Quer <del>jogar</del> estudar o que Parceiro?</h2>",

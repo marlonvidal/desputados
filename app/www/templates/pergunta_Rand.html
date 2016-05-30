@@ -1,11 +1,11 @@
-<ion-view title="Pergunta_Bio" id="page3" style="background-color:#FBE74F;" class=" ">
+<ion-view title="Pergunta" id="page3" style="background-color:#FBE74F;" class=" ">
     <ion-content padding="true" class="has-header">
         <h1 id="pergunta_Bio-heading2" style="color:#175782;text-align:center;" class=" ">{{question.assunto}}</h1>
         <div class="">
             <img src="img/image_{{category}}.png" width="50%" height="auto" style="display: block; margin-left: auto; margin-right: auto;">
         </div>
         <div class="spacer" style="width: 283px; height: 41px;"></div>
-        <p style="color:#12C977;font-size:16px;text-align:justify;" class=" ">{{question.enunciado}}</p>
+        <p style="color:#12C977;font-size:16px;text-align:justify;" ng-bind-html=question.enunciado></p>
         <form id="pergunta_Bio-form6"
           <ion-list>
             <ion-radio  ng-repeat="item in question.alternativas"
