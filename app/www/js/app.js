@@ -5,7 +5,7 @@
 // the 2nd parameter is an array of 'requires'
 // 'starter.services' is found in services.js
 // 'starter.controllers' is found in controllers.js
-var app = angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives']);
+var app = angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ui.router']);
 
 app.run(function($ionicPlatform) {
   $ionicPlatform.ready(function() {
@@ -21,18 +21,3 @@ app.run(function($ionicPlatform) {
     }
   });
 });
-
-// app.controller('mainController', function($scope){
-//   var questions = new getQuestions();
-//
-//   //TODO
-//   $scope.question = questions.items[Math.floor(Math.random()*questions.items.length)];
-//
-//   console.log(questions.items.length);
-//
-//   $scope.onMarkTask = function(item){
-//     console.log("passou");
-//     item.finalizada = !item.finalizada;
-//   };
-//
-// });

@@ -5540,6 +5540,16 @@ ion-tabs.tabs-color-active-dark .tab-item {
   padding: 10px;
   overflow: auto; }
 
+.popup-vertical-buttons button
+  {
+      min-width: 100%;
+      margin-bottom: 5px;
+  }
+.popup-vertical-buttons .popup-buttons
+  {
+      display: block;
+  }
+
 .popup-buttons {
   display: -webkit-box;
   display: -webkit-flex;

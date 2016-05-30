@@ -4,26 +4,25 @@ angular.module('app.controllers', [])
 
 })
 
-.controller('mainController', function($scope, $ionicPopup, QuestoesService) {
+.controller('mainController', function($scope, $ionicPopup, $state, QuestoesService) {
 
   var score = 0;//TEMPORARIO TEM QUE BUSCAR DO BD
   var answer;
   var message;
-
-
-
-  getQuestion(2);
+  //pega a categoria definida pelos parametros de route
+  getQuestion($state.params.categoria);
 
   function getQuestion(item){
-    console.log(item);
     $scope.question = "";
-    $scope.marked = true; //check if the one answer was marked
+    $scope.marked = true;
+
+    $scope.category = item;
 
     QuestoesService.buscaQuestoes(item)
     .then(function(data) {
         console.log('data success');
         console.log(data); // for browser console
-        $scope.question = data[Math.floor(Math.random()*data.length)]; // Pega uma pergunta randomica
+        $scope.question = data[Math.floor(Math.random()*data.length)]; // random question get
     })
     .catch(function(data) {
         console.log('data error');
@@ -32,14 +31,11 @@ angular.module('app.controllers', [])
   }
 
     $scope.onMarkQuestion = function(item){
-      console.log(item);
       answer = item;
-      //console.log(answer);
       $scope.marked = false;
     }
 
     $scope.checkAnswer = function(question){
-      // console.log(question);
       if (answer.alternativaCorreta == true){
         message = {text: "Acertou",
                    desc: answer.descricao};
@@ -47,7 +43,6 @@ angular.module('app.controllers', [])
         console.log(score);
         showModal(message);
       } else {
-
         message = {text: "Errooooooooou!!!",
                    desc: "Assista a Video-Aula com a Resposta Truta!!!"};
         showModal(message);
@@ -63,28 +58,63 @@ angular.module('app.controllers', [])
                    type: 'button-positive'}]
       }).then();
       myModal.then(function(res){
-        getQuestion(2);
+        getQuestion($state.params.categoria);
       });
-    }
-
-    function choice(choice){
-      this.choice = choice;
     }
 
     //((REDIRECIONAR PRA VIEW DE PERGUNTAS DEPOIS DE ESCOLHER A MATERIAS))
-    $scope.menuModal = function(){
-      console.log("vem monstro");
+    $scope.menuPopUp = function(){
+      var choice = 0;
+
       var menuModal = $ionicPopup.show({
         title: "Qual é a tua?",
         subTitle: "<h2>Quer <del>jogar</del> estudar o que Parceiro?</h2>",
-        template:"",
+        cssClass: "popup-vertical-buttons",
         buttons: [{text: "Biologia",
-                   type: "button-positive",
-                    onTap: choice(2)}]
+                  type: "button-full button-positive",
+                  onTap: function(e){
+                    choice = 2;
+                  }},
+                  {text: "Física",
+                  type: "button-full button-calm",
+                  onTap: function(e){
+                    choice = 3;
+                  }},
+                  {text: "Matemática",
+                  type: "button-full button-balanced",
+                  onTap: function(e){
+                      choice = 4;
+                  }},
+                  {text: "Português",
+                  type: "button-full button-energized",
+                  onTap: function(e){
+                      choice = 5;
+                  }},
+                  {text: "Química",
+                  type: "button-full button-assertive",
+                  onTap: function(e){
+                      choice = 6;
+                  }},
+                  {text: "História",
+                  type: "button-full button-royal",
+                  onTap: function(e){
+                      choice = 7;
+                  }},
+                  {text: "Atualidades",
+                  type: "button-full button-dark",
+                  onTap: function(e){
+                      choice = 8;
+                  }},
+                  {text: "Geografia",
+                  type: "button-full button-positive",
+                  onTap: function(e){
+                      choice = 9;
+                  }}]
       });
 
+
       menuModal.then(function(res){
-        getQuestion(this.choice)
+        $state.go('pergunta_Random', {categoria: choice});
       });
     }
 })

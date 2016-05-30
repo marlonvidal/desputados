@@ -23,7 +23,7 @@ angular.module('app.routes', [])
   })
 
   .state('pergunta_Random', {
-    url: '/rand',
+    url: '/rand/:categoria',
     templateUrl: 'templates/pergunta_Rand.html',
     controller: 'mainController'
   })
