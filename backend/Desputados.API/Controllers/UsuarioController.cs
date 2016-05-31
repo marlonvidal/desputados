@@ -26,8 +26,11 @@ namespace Desputados.API.Controllers
 
                     if (usuario == null)
                     {
-                        sucesso = false;
-                        mensagem = "O usuário informado não existe";
+                        return Ok(new
+                        {
+                            sucesso = false,
+                            mensagem = "O usuário informado não existe"
+                        });
                     }
 
                     return Ok(new
