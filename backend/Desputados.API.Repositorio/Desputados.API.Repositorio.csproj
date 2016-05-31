@@ -68,6 +68,8 @@
     <Compile Include="DesputadosContext.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="questoes.cs" />
+    <Compile Include="ranking_usuario.cs" />
+    <Compile Include="usuarios.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config">

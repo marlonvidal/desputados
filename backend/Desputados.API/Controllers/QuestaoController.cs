@@ -20,18 +20,19 @@ namespace Desputados.API.Controllers
         {
             try
             {
-                var db = new DesputadosContext();
+                using (var db = new DesputadosContext())
+                {
+                    var lista = new List<Questao>();
 
-                var lista = new List<Questao>();
+                    var questoes = db.questoes
+                        .Include("alternativas")
+                        .Where(x => x.ID_CATEGORIA == idCategoria);
 
-                var questoes = db.questoes
-                    .Include("alternativas")
-                    .Where(x => x.ID_CATEGORIA == idCategoria);
+                    foreach (var questao in questoes)
+                        lista.Add(questao);
 
-                foreach (var questao in questoes)
-                    lista.Add(questao);
-
-                return Ok(lista);
+                    return Ok(lista);
+                }
             }
             catch (Exception ex)
             {

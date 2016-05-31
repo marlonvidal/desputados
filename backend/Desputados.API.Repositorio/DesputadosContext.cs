@@ -11,12 +11,13 @@ namespace Desputados.API.Repositorio
         public DesputadosContext()
             : base("name=DesputadosContext")
         {
-
         }
 
         public virtual DbSet<alternativas> alternativas { get; set; }
         public virtual DbSet<categorias> categorias { get; set; }
         public virtual DbSet<questoes> questoes { get; set; }
+        public virtual DbSet<ranking_usuario> ranking_usuario { get; set; }
+        public virtual DbSet<usuarios> usuarios { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
@@ -46,6 +47,20 @@ namespace Desputados.API.Repositorio
                 .HasMany(e => e.alternativas)
                 .WithRequired(e => e.questoes)
                 .HasForeignKey(e => e.ID_QUESTAO)
+                .WillCascadeOnDelete(false);
+
+            modelBuilder.Entity<usuarios>()
+                .Property(e => e.EMAIL)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<usuarios>()
+                .Property(e => e.NOME)
+                .IsUnicode(false);
+
+            modelBuilder.Entity<usuarios>()
+                .HasMany(e => e.ranking_usuario)
+                .WithRequired(e => e.usuarios)
+                .HasForeignKey(e => e.ID_USUARIO)
                 .WillCascadeOnDelete(false);
         }
     }
