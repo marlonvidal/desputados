@@ -40,6 +40,39 @@ namespace Desputados.API.Controllers
             }
         }
 
+        [HttpGet]
+        [Route("{idUsuario}")]
+        public IHttpActionResult GetRankingUsuario(int idUsuario)
+        {
+            try
+            {
+                using (var db = new DesputadosContext())
+                {
+                    Ranking ranking = null;
+
+                    var rankingUsuario = db.ranking_usuario
+                        .Include("usuarios")
+                        .Where(x => x.ID_USUARIO == idUsuario)
+                        .FirstOrDefault();
+
+                    if (rankingUsuario != null)
+                    {
+                        ranking = new Ranking()
+                        {
+                            nomeUsuario = rankingUsuario.usuarios.NOME,
+                            pontuacao = rankingUsuario.PONTUACAO
+                        };
+                    }
+
+                    return Ok(ranking);
+                }
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
         [HttpPost]
         [Route("")]
         public IHttpActionResult Post([FromBody]RankingRequest rankingRequest)
