@@ -1,68 +1,21 @@
 <ion-view title="Rank" id="page4" style="background-color:#FF6161;" class=" ">
     <ion-content padding="true" class="has-header">
         <h1 id="rank-heading3" style="color:#FBE74F;text-align:center;" class=" ">Ranking</h1>
-        <ion-list id="rank-list4" class=" ">
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item4">
-                <h2positive>#1
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item5">
-                <h2positive>#2
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item6">
-                <h2positive>#3
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item7">
-                <h2positive>#4
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item8">
-                <h2positive>#5
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item9">
-                <h2positive>#6
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item10">
-                <h2positive>#7
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item11">
-                <h2positive>#8
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item12">
-                <h2positive>#9
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
-            <ion-item class="item-avatar item-icon-right positive  " id="rank-list-item13">
-                <h2positive>#10
-                    <p>Fulano de Tal</p>
-                    <i class="icon ion-android-person icon-accessory"></i>
-                </h2positive>
-            </ion-item>
+
+        <ion-list>
+          <ion-item class="item-avatar item-icon-right positive  "
+            ng-repeat="item in ranking|limitTo:10"
+            ng-value="item.nomeUsuario">
+            <h2positive>
+              <div class="col col-50">#{{$index +1}}<br>{{item.nomeUsuario}}
+              </div>
+            </h2positive>
+            <div class="col col-25">{{item.pontuacao}} pts
+            </div>
+            <i class="icon ion-ribbon-b"></i>
+          </ion-item>
         </ion-list>
-        <a ui-sref="login" id="rank-button19" style="color:#FF6161;" class=" button button-energized  button-block ">Voltar</a>
+        <a ui-sref="menu" id="rank-button19" style="color:#FF6161;" class=" button button-energized  button-block ">Voltar</a>
+
     </ion-content>
 </ion-view>

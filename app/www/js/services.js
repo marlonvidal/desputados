@@ -6,10 +6,7 @@ angular.module('app.services', [])
 }])
 
 .service('QuestoesService', function($http, $q, URL_API){
-
 	this.buscaQuestoes = function(idCategoria) {
-		console.log(URL_API);
-
 		var deferred = $q.defer();
 
 		$http.get(URL_API + 'api/questoes/' + idCategoria)
@@ -24,9 +21,40 @@ angular.module('app.services', [])
 	};
 })
 
+.service('ScoreService', function($http, $q, $httpParamSerializer, URL_API){
+	this.addScore = function(idUser){
+		$http.post(URL_API +'api/ranking/',$httpParamSerializer({ idUsuario: idUser }));
+	}
+
+	this.buscaRanking = function(){
+		var deferred = $q.defer();
+
+		$http.get(URL_API + 'api/ranking/')
+		.success(function (data) {
+			deferred.resolve(data);
+		})
+		.error(function(data) {
+			deferred.reject(data);
+		});
+		return deferred.promise;
+	}
+
+	this.buscaScore = function(idUser) {
+		var deferred = $q.defer();
+
+		$http.get(URL_API + 'api/ranking/' + idUser)
+		.success(function (data) {
+			deferred.resolve(data);
+		})
+		.error(function(data) {
+			deferred.reject(data);
+		});
+		return deferred.promise;
+	};
+})
+
 .service('LoginService', function($http, $q, $httpParamSerializer, URL_API){
 	var logged;
-
 	setUser = function(user){
 		console.log("set User");
 		logged = user;
@@ -47,7 +75,6 @@ angular.module('app.services', [])
 		.success(function (data) {
 			deferred.resolve(data);
 			setUser(data);
-
 		})
 		.error(function(data) {
 			deferred.reject(data);
@@ -60,20 +87,7 @@ angular.module('app.services', [])
 		console.log(nome);
 		console.log(email);
 
-		// var deferred = $q.defer();
-
 		$http.post(URL_API +'api/usuario',$httpParamSerializer({ nome: nome, email: email }));
-		// .success(function (data) {
-		// 	deferred.resolve(data);
-		// })
-		// .error(function(data) {
-		// 	deferred.reject(data);
-		// });
-		// return deferred.promise;
 	};
-
-
-
-
 
 });

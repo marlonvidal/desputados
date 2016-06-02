@@ -43,8 +43,6 @@ angular.module('app.controllers', [])
 
     var myModal = $ionicPopup.show({
       template:"<input type='text' placeholder='Insira seu Nome' autofocus='true' ng-model='data.nome' required> <br> <input type='text' placeholder='Insira seu e-mail' autofocus='true' ng-model='data.email' required>",
-      templates: ["<input type='text' placeholder='insira seu e-mail' autofocus='true' ng-model='data.email' required>",
-                   "<input type='text' placeholder='insira seu e-mail' autofocus='true' ng-model='data.email' required>"],
       title: "Cadastrar Novo Usuário",
       scope: $scope,
       buttons: [{text: "Cancelar",
@@ -52,7 +50,7 @@ angular.module('app.controllers', [])
                 {text: "Ok",
                  type: "button-positive",
                  onTap: function(e) {
-                   //COLOCAR UM BLOQUEIO DE NAO DEIXAR CADASTRAR EM BRANCO
+                   //((( COLOCAR UM BLOQUEIO DE NAO DEIXAR CADASTRAR EM BRANCO )))
                     LoginService.cadastraUser($scope.data.nome, $scope.data.email);
                  }}
                ],
@@ -61,32 +59,29 @@ angular.module('app.controllers', [])
       //console.log($scope.data.email);
     });
   }
-
-
-  // LoginService.cadastraUser();
-
-
-  // .then(function(data) {
-  //     console.log('login');
-  //     console.log(data); // for browser console
-  //     //$scope.question = data[Math.floor(Math.random()*data.length)]; // random question get
-  //     $scope.login = data;
-  // })
-  // .catch(function(data) {
-  //     console.log('login error');
-  //     console.log(data);
-  // });
-
 })
 
-.controller('mainController', function($scope, $ionicPopup, $state, QuestoesService, LoginService) {
+.controller('mainController', function($scope, $ionicPopup, $state, QuestoesService, LoginService, ScoreService) {
   //Fazer uma funcao para verificar se o user esta logado
+
+  var score;//TEMPORARIO TEM QUE BUSCAR DO BD
+  var answer;
+  var message;
 
   $scope.user = LoginService.getUser();
 
-  var score = 0;//TEMPORARIO TEM QUE BUSCAR DO BD
-  var answer;
-  var message;
+  if ($scope.user != null){
+    console.log($scope.user.usuario.id);
+
+    ScoreService.buscaScore($scope.user.usuario.id).then(
+      function(result) {
+         $scope.myScore = result;
+         score = $scope.myScore.pontuacao;
+         console.log(score);
+      }
+    );
+  }
+
   //pega a categoria definida pelos parametros de route
   getQuestion($state.params.categoria);
 
@@ -115,9 +110,9 @@ angular.module('app.controllers', [])
 
     $scope.checkAnswer = function(question){
       if (answer.alternativaCorreta == true){
-        message = {text: "Acertou",
+        message = {text: "Acertô Mizeravi",
                    desc: answer.descricao};
-        score +=1; //chamada da API
+        ScoreService.addScore($scope.user.usuario.id); //chamada da API
         console.log(score);
         showModal(message);
       } else {
@@ -140,12 +135,11 @@ angular.module('app.controllers', [])
       });
     }
 
-    //((REDIRECIONAR PRA VIEW DE PERGUNTAS DEPOIS DE ESCOLHER A MATERIAS))
     $scope.menuPopUp = function(){
       var choice = 0;
       var menuModal = $ionicPopup.show({
         title: "Qual é a tua?",
-        subTitle: "<h2>Quer <del>jogar</del> estudar o que Parceiro?</h2>",
+        subTitle: "<h3>Quer <del>jogar</del> estudar o que Parceiro?</h3>",
         cssClass: "popup-vertical-buttons",
         buttons: [{text: "Biologia",
                   type: "button-full button-positive",
@@ -188,12 +182,23 @@ angular.module('app.controllers', [])
                       choice = 9;
                   }}]
       });
-
-
       menuModal.then(function(res){
         $state.go('pergunta_Random', {categoria: choice});
       });
     }
+})
+
+.controller('rankCtrl', function($scope, $ionicPopup, $state, ScoreService, LoginService) {
+  ScoreService.buscaRanking()
+  .then(function(data) {
+      console.log('data success');
+      console.log(data); // for browser console
+      $scope.ranking = data; // random question get
+  })
+  .catch(function(data) {
+      console.log('data error');
+      console.log(data);
+  });
 })
 
 .controller('menuCtrl', function($scope) {
@@ -233,10 +238,6 @@ angular.module('app.controllers', [])
 })
 
 .controller('pergunta_FilSolCtrl', function($scope) {
-
-})
-
-.controller('rankCtrl', function($scope) {
 
 })
 
