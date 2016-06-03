@@ -3,14 +3,16 @@
         <h1 id="rank-heading3" style="color:#FBE74F;text-align:center;" class=" ">Ranking</h1>
 
         <ion-list>
-          <ion-item class="item-avatar item-icon-right positive  "
+          <ion-item class="item-icon-right positive"
             ng-repeat="item in ranking|limitTo:10"
             ng-value="item.nomeUsuario">
-            <h2positive>
-              <div class="col col-50">#{{$index +1}}<br>{{item.nomeUsuario}}
+            <div class="row">
+              <div class="col col-75">
+                #{{$index +1}}<br>{{item.nomeUsuario}}
               </div>
-            </h2positive>
-            <div class="col col-25">{{item.pontuacao}} pts
+              <div class="col col-25">
+                {{item.pontuacao}} pts
+              </div>
             </div>
             <i class="icon ion-ribbon-b"></i>
           </ion-item>
